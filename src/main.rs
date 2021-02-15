@@ -30,5 +30,5 @@ fn main() {
     println!("User2 has activate status of {}.", user2.active);
     let black = Color(0,0,0);
     let point = Point(1,2,3);
-    println!("point x:{}, y:{}, z:{}.", point.0, point.1, point.2)
+    println!("point x:{}, y:{}, z:{}.", point.0, point.1, point.2);
 }
