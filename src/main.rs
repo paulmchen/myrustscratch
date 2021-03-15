@@ -1,4 +1,4 @@
-use crate::Coin::{Penny, Nickle};
+use crate::Coin::{Nickle, Penny};
 
 struct Rectangle {
     width: u32,
@@ -8,6 +8,17 @@ struct Rectangle {
 impl Rectangle {
     fn area(&self) -> u32 {
         self.width * self.height
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+
+    fn square(size: u32) -> Rectangle {
+        Rectangle {
+            width: size,
+            height: size,
+        }
     }
 }
 
@@ -20,16 +31,14 @@ enum Message {
     Quit,
     Move { x: i32, y: i32 },
     Write(String),
-    ChangeColor (i32, i32, i32),
+    ChangeColor(i32, i32, i32),
 }
 
 impl Message {
     fn call(&self) {
         // method doing something
-
     }
 }
-
 
 fn route(ip: IpAddrKind) {
     println!("Ip kind.");
@@ -47,7 +56,7 @@ enum Coin {
     Quarter(UsState),
 }
 
-fn value_in_cents(coin:Coin)  -> u8 {
+fn value_in_cents(coin: Coin) -> u8 {
     match coin {
         Coin::Penny => 1,
         Coin::Nickle => 5,
@@ -59,11 +68,10 @@ fn value_in_cents(coin:Coin)  -> u8 {
     }
 }
 
-
-fn plus_one(x:Option<i32>) -> Option<i32> {
+fn plus_one(x: Option<i32>) -> Option<i32> {
     match x {
-        None=> None,
-        Some(i) => Some(i+1),
+        None => None,
+        Some(i) => Some(i + 1),
     }
 }
 
@@ -86,11 +94,31 @@ fn main() {
     let m = Message::Write(String::from("hello"));
     m.call();
 
-
-    let v= value_in_cents(Coin::Quarter(UsState::Alaska));
+    let v = value_in_cents(Coin::Quarter(UsState::Alaska));
     println!("The coin value is {}.", v);
 
     let seven = Some(5);
     let eight = plus_one(seven);
     let none = plus_one(None);
+
+    let rec1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+
+    let rec2 = Rectangle {
+        width: 10,
+        height: 40,
+    };
+
+    let rec3 = Rectangle {
+        width: 60,
+        height: 45,
+    };
+
+    println!("Can rec1 hold rect2? {}.", rec1.can_hold(&rec2));
+    println!("Can rec1 hold rect2? {}.", rec1.can_hold(&rec3));
+
+    let rec4 = Rectangle::square(3);
+    println!("Can rec1 hold rec4? {}.", rec1.can_hold(&rec4));
 }
